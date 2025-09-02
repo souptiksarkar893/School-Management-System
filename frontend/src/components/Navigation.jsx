@@ -1,5 +1,5 @@
-import { Navbar, Nav, Container } from 'react-bootstrap';
-import { Link, useLocation } from 'react-router-dom';
+import { Navbar, Nav, Container } from "react-bootstrap";
+import { Link, useLocation } from "react-router-dom";
 
 const Navigation = () => {
   const location = useLocation();
@@ -10,21 +10,25 @@ const Navigation = () => {
         <Navbar.Brand as={Link} to="/">
           🏫 School Management System
         </Navbar.Brand>
-        
+
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <Nav.Link 
-              as={Link} 
+            <Nav.Link
+              as={Link}
               to="/schools"
-              className={location.pathname === '/schools' || location.pathname === '/' ? 'active' : ''}
+              className={
+                location.pathname === "/schools" || location.pathname === "/"
+                  ? "active"
+                  : ""
+              }
             >
               All Schools
             </Nav.Link>
-            <Nav.Link 
-              as={Link} 
+            <Nav.Link
+              as={Link}
               to="/add-school"
-              className={location.pathname === '/add-school' ? 'active' : ''}
+              className={location.pathname === "/add-school" ? "active" : ""}
             >
               Add School
             </Nav.Link>

@@ -14,6 +14,7 @@ A full-stack web application for managing school information built with React (V
 ## Tech Stack
 
 ### Frontend
+
 - React 18 with Vite
 - Bootstrap 5 & React Bootstrap
 - React Hook Form for form handling
@@ -21,6 +22,7 @@ A full-stack web application for managing school information built with React (V
 - Axios for API calls
 
 ### Backend
+
 - Node.js with Express.js
 - MySQL database (hosted on Railway)
 - Cloudinary for image storage
@@ -63,6 +65,7 @@ School Management/
 ## Setup Instructions
 
 ### Prerequisites
+
 - Node.js (v16 or higher)
 - Railway account (for MySQL database)
 - Cloudinary account (for image storage)
@@ -82,6 +85,7 @@ School Management/
 ### 3. Environment Configuration
 
 #### Backend Environment (backend/.env)
+
 ```env
 # Environment Variables
 PORT=5000
@@ -103,6 +107,7 @@ NODE_ENV=development
 ```
 
 #### Frontend Environment (frontend/.env)
+
 ```env
 # Frontend Environment Variables
 VITE_API_URL=http://localhost:5000/api
@@ -112,6 +117,7 @@ VITE_APP_NAME=School Management System
 ### 4. Installation and Running
 
 #### Option 1: Run both frontend and backend together (Recommended)
+
 ```bash
 # Install all dependencies
 npm run install-all
@@ -121,6 +127,7 @@ npm run dev
 ```
 
 #### Option 2: Run separately
+
 ```bash
 # Backend
 cd backend
@@ -142,6 +149,7 @@ npm run dev
 ## API Endpoints
 
 ### Schools
+
 - `GET /api/schools` - Get all schools (with pagination and search)
 - `POST /api/schools` - Add a new school
 - `GET /api/schools/:id` - Get school by ID
@@ -149,6 +157,7 @@ npm run dev
 - `DELETE /api/schools/:id` - Delete school
 
 ### Query Parameters for GET /api/schools
+
 - `page` - Page number (default: 1)
 - `limit` - Items per page (default: 10)
 - `search` - Search term for name, city, or state
@@ -156,6 +165,7 @@ npm run dev
 ## Database Schema
 
 ### Schools Table
+
 ```sql
 CREATE TABLE schools (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -174,6 +184,7 @@ CREATE TABLE schools (
 ## Form Validation
 
 ### Add School Form
+
 - **Name**: Required, 2-100 characters
 - **Address**: Required, 5-200 characters
 - **City**: Required, 2-50 characters
@@ -185,6 +196,7 @@ CREATE TABLE schools (
 ## Features
 
 ### Frontend
+
 - Responsive design using Bootstrap
 - Form validation with react-hook-form
 - Image preview before upload
@@ -193,6 +205,7 @@ CREATE TABLE schools (
 - Loading states and error handling
 
 ### Backend
+
 - RESTful API design
 - Input validation and sanitization
 - Image upload to Cloudinary
@@ -203,16 +216,19 @@ CREATE TABLE schools (
 ## Development Scripts
 
 ### Root level
+
 - `npm run dev` - Start both frontend and backend
 - `npm run server` - Start backend only
 - `npm run client` - Start frontend only
 - `npm run install-all` - Install all dependencies
 
 ### Backend
+
 - `npm run dev` - Start with nodemon
 - `npm start` - Start production server
 
 ### Frontend
+
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
 - `npm run preview` - Preview production build
@@ -220,12 +236,14 @@ CREATE TABLE schools (
 ## Deployment
 
 ### Backend (Railway)
+
 1. Push your code to GitHub
 2. Connect Railway to your repository
 3. Set environment variables in Railway dashboard
 4. Deploy
 
 ### Frontend (Vercel/Netlify)
+
 1. Build the frontend: `npm run build`
 2. Deploy the `dist` folder
 3. Update `VITE_API_URL` to your deployed backend URL
@@ -235,14 +253,17 @@ CREATE TABLE schools (
 ### Common Issues
 
 1. **Database Connection Error**
+
    - Verify Railway MySQL connection string
    - Check if DATABASE_URL is correctly set
 
 2. **Image Upload Fails**
+
    - Verify Cloudinary credentials
    - Check image file size (max 5MB)
 
 3. **CORS Error**
+
    - Ensure FRONTEND_URL in backend .env matches your frontend URL
 
 4. **Port Already in Use**

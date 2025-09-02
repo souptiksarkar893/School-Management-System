@@ -1,13 +1,23 @@
-import { useState, useEffect } from 'react';
-import { Container, Row, Col, Card, Alert, Spinner, Form, InputGroup, Button } from 'react-bootstrap';
-import { schoolAPI } from '../services/api';
-import SchoolCard from '../components/SchoolCard';
+import { useState, useEffect } from "react";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Alert,
+  Spinner,
+  Form,
+  InputGroup,
+  Button,
+} from "react-bootstrap";
+import { schoolAPI } from "../services/api";
+import SchoolCard from "../components/SchoolCard";
 
 const ShowSchools = () => {
   const [schools, setSchools] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  const [searchTerm, setSearchTerm] = useState('');
+  const [error, setError] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalSchools, setTotalSchools] = useState(0);
@@ -15,15 +25,15 @@ const ShowSchools = () => {
   const schoolsPerPage = 12;
 
   // Fetch schools from API
-  const fetchSchools = async (page = 1, search = '') => {
+  const fetchSchools = async (page = 1, search = "") => {
     setLoading(true);
-    setError('');
+    setError("");
 
     try {
       const response = await schoolAPI.getAllSchools({
         page,
         limit: schoolsPerPage,
-        search: search.trim()
+        search: search.trim(),
       });
 
       if (response.success) {
@@ -33,8 +43,8 @@ const ShowSchools = () => {
         setCurrentPage(response.pagination.page);
       }
     } catch (err) {
-      console.error('Error fetching schools:', err);
-      setError('Failed to fetch schools. Please try again later.');
+      console.error("Error fetching schools:", err);
+      setError("Failed to fetch schools. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -42,7 +52,7 @@ const ShowSchools = () => {
 
   // Initial fetch
   useEffect(() => {
-    fetchSchools(1, '');
+    fetchSchools(1, "");
   }, []);
 
   // Handle search
@@ -66,9 +76,9 @@ const ShowSchools = () => {
 
   // Clear search
   const handleClearSearch = () => {
-    setSearchTerm('');
+    setSearchTerm("");
     setCurrentPage(1);
-    fetchSchools(1, '');
+    fetchSchools(1, "");
   };
 
   if (loading && schools.length === 0) {
@@ -89,7 +99,7 @@ const ShowSchools = () => {
           <h2 className="text-center mb-4 text-primary">School Directory</h2>
         </Col>
       </Row>
-      
+
       {/* Search Bar */}
       <Row className="justify-content-center mb-4">
         <Col xs={12} lg={10} xl={8}>
@@ -98,7 +108,9 @@ const ShowSchools = () => {
               <div className="search-form-wrapper">
                 <div className="search-field-wrapper">
                   <Form.Group>
-                    <Form.Label className="form-label">Search Schools</Form.Label>
+                    <Form.Label className="form-label">
+                      Search Schools
+                    </Form.Label>
                     <Form.Control
                       type="text"
                       placeholder="Search by name, city, or state..."
@@ -109,9 +121,9 @@ const ShowSchools = () => {
                   </Form.Group>
                 </div>
                 <div className="search-button-wrapper">
-                  <Button 
-                    variant="primary" 
-                    type="submit" 
+                  <Button
+                    variant="primary"
+                    type="submit"
                     disabled={loading}
                     size="lg"
                     className="search-btn"
@@ -119,12 +131,12 @@ const ShowSchools = () => {
                     {loading ? (
                       <Spinner size="sm" animation="border" />
                     ) : (
-                      'Search'
+                      "Search"
                     )}
                   </Button>
                   {searchTerm && (
-                    <Button 
-                      variant="outline-secondary" 
+                    <Button
+                      variant="outline-secondary"
                       onClick={handleClearSearch}
                       size="lg"
                       className="clear-btn"
@@ -145,9 +157,14 @@ const ShowSchools = () => {
           <Col xs={12} lg={10} xl={8}>
             <p className="text-muted text-center">
               {searchTerm ? (
-                <>Showing {schools.length} of {totalSchools} schools matching "{searchTerm}"</>
+                <>
+                  Showing {schools.length} of {totalSchools} schools matching "
+                  {searchTerm}"
+                </>
               ) : (
-                <>Showing {schools.length} of {totalSchools} schools</>
+                <>
+                  Showing {schools.length} of {totalSchools} schools
+                </>
               )}
             </p>
           </Col>
@@ -172,13 +189,13 @@ const ShowSchools = () => {
             <Alert variant="info" className="text-center">
               {searchTerm ? (
                 <>
-                  No schools found matching "{searchTerm}". 
+                  No schools found matching "{searchTerm}".
                   <Button variant="link" onClick={handleClearSearch}>
                     Show all schools
                   </Button>
                 </>
               ) : (
-                'No schools found. Add the first school to get started!'
+                "No schools found. Add the first school to get started!"
               )}
             </Alert>
           </Col>
@@ -189,7 +206,14 @@ const ShowSchools = () => {
             <div className="schools-container">
               <Row className="g-4">
                 {schools.map((school) => (
-                  <Col key={school.id} xs={12} sm={6} md={4} lg={3} className="d-flex">
+                  <Col
+                    key={school.id}
+                    xs={12}
+                    sm={6}
+                    md={4}
+                    lg={3}
+                    className="d-flex"
+                  >
                     <SchoolCard school={school} />
                   </Col>
                 ))}
@@ -205,7 +229,9 @@ const ShowSchools = () => {
           <Col xs="auto">
             <nav aria-label="Schools pagination">
               <ul className="pagination justify-content-center">
-                <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                <li
+                  className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
+                >
                   <Button
                     variant="outline-primary"
                     onClick={() => handlePageChange(currentPage - 1)}
@@ -214,12 +240,12 @@ const ShowSchools = () => {
                     Previous
                   </Button>
                 </li>
-                
+
                 {/* Page Numbers */}
                 {[...Array(totalPages)].map((_, index) => {
                   const page = index + 1;
                   const isCurrentPage = page === currentPage;
-                  
+
                   // Show first page, last page, current page, and pages around current
                   if (
                     page === 1 ||
@@ -227,9 +253,14 @@ const ShowSchools = () => {
                     (page >= currentPage - 1 && page <= currentPage + 1)
                   ) {
                     return (
-                      <li key={page} className={`page-item ${isCurrentPage ? 'active' : ''}`}>
+                      <li
+                        key={page}
+                        className={`page-item ${isCurrentPage ? "active" : ""}`}
+                      >
                         <Button
-                          variant={isCurrentPage ? 'primary' : 'outline-primary'}
+                          variant={
+                            isCurrentPage ? "primary" : "outline-primary"
+                          }
                           onClick={() => handlePageChange(page)}
                           disabled={loading}
                           className="mx-1"
@@ -251,7 +282,11 @@ const ShowSchools = () => {
                   return null;
                 })}
 
-                <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+                <li
+                  className={`page-item ${
+                    currentPage === totalPages ? "disabled" : ""
+                  }`}
+                >
                   <Button
                     variant="outline-primary"
                     onClick={() => handlePageChange(currentPage + 1)}
